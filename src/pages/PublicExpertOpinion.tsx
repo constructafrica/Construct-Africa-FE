@@ -1,7 +1,6 @@
 import { useState, useMemo } from "react";
-import { ActionButton, CustomSelect, FiltersSidebar, ExpertCard } from "../components";
+import { ActionButton, ExpertCard, Select } from "../components";
 import { CgSortAz } from "react-icons/cg";
-import type { AppFilters } from "../types/filter.types";
 import { featuredOpinions } from "../data/home.data";
 
 interface ExpertOpinion {
@@ -15,7 +14,9 @@ interface ExpertOpinion {
 const PublicExpertOpinion = () => {
     const [sortBy, setSortBy] = useState('recently-added');
     const [showFilters, setShowFilters] = useState(false);
-    const [appliedFilters, setAppliedFilters] = useState<AppFilters>({});
+    const [selectedRegion, setSelectedRegion] = useState("All");
+    const [selectedCountry, setSelectedCountry] = useState("All");
+    const [selectedSector, setSelectedSector] = useState("All");
     const [isLoading] = useState(false);
 
     const dummyOpinions: ExpertOpinion[] = useMemo(() => [
@@ -57,24 +58,25 @@ const PublicExpertOpinion = () => {
         }
     ], []);
 
-    const sortOptions = [
-        { value: 'recently-added', label: 'Recently added' },
-        { value: 'oldest', label: 'Oldest first' },
-        { value: 'alphabetical', label: 'Alphabetical' },
-        { value: 'name', label: 'Name (A-Z)' }
-    ];
+    const regions = ["All", "West Africa", "East Africa", "South Africa", "Central Africa", "North Africa"];
+    const countries = ["All", "Nigeria", "Kenya", "South Africa", "Egypt", "Ghana"];
+    const sectors = ["All", "Infrastructure", "Energy", "Transportation", "Housing", "Technology"];
 
     // Filter and sort opinions
     const filteredOpinions = useMemo(() => {
-        let opinions = [...dummyOpinions];
+        const opinions = [...dummyOpinions];
 
         // Apply filters
-        if (appliedFilters.country && Array.isArray(appliedFilters.country) && appliedFilters.country.length > 0) {
+        if (selectedCountry && selectedCountry !== "All") {
             // Filter logic can be added based on expert location if available
         }
 
-        if (appliedFilters.region && Array.isArray(appliedFilters.region) && appliedFilters.region.length > 0) {
+        if (selectedRegion && selectedRegion !== "All") {
             // Filter logic can be added based on expert region if available
+        }
+
+        if (selectedSector && selectedSector !== "All") {
+            // Filter logic can be added based on expert sector if available
         }
 
         // Apply sorting
@@ -94,18 +96,16 @@ const PublicExpertOpinion = () => {
         }
 
         return opinions;
-    }, [dummyOpinions, appliedFilters, sortBy]);
+    }, [dummyOpinions, selectedRegion, selectedCountry, selectedSector, sortBy]);
 
-    const handleSortChange = (newSortBy: string) => {
-        setSortBy(newSortBy);
+    const clearAllFilters = () => {
+        setSelectedRegion("All");
+        setSelectedCountry("All");
+        setSelectedSector("All");
     };
 
-    const handleApplyFilters = (filters: AppFilters) => {
-        setAppliedFilters(filters);
-    };
-
-    const activeFiltersCount = Object.values(appliedFilters).filter(
-        val => (Array.isArray(val) && val.length > 0) || (typeof val === 'object' && val !== null && Object.keys(val).length > 0)
+    const activeFiltersCount = [selectedRegion, selectedCountry, selectedSector].filter(
+        val => val !== "All"
     ).length;
 
     return (
@@ -136,44 +136,84 @@ const PublicExpertOpinion = () => {
                 />
             </div>
 
-            <section className={`relative ${showFilters ? 'flex flex-col-reverse lg:flex-row gap-4 sm:gap-5 lg:gap-6 w-full' : 'w-full'}`}>
-                <div className={`${showFilters ? 'flex-1 min-w-0 lg:order-2' : 'w-full'}`}>
-                    {isLoading ? (
-                        <div className="flex items-center justify-center py-12">
-                            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#6366F1]"></div>
-                        </div>
-                    ) : (
-                        <div className={`grid grid-cols-1 ${!showFilters
-                                ? 'sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-                                : 'sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3'
-                            } gap-4 sm:gap-5 md:gap-6`}>
-                            {filteredOpinions.map((expert) => (
-                                <ExpertCard
-                                    key={expert.id}
-                                    expertImage={expert.image}
-                                    expertName={expert.name}
-                                    title={expert.title}
-                                    opinion={expert.opinion}
-                                    expertId={expert.id}
-                                    link={`/insights/expert-opinions/${expert.id}`}
+            {showFilters && (
+                <div className="mb-8 px-0 lg:px-5">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                        <div className="flex flex-col sm:flex-row gap-4 flex-1">
+                            <div className='w-[300px]'>
+                                <Select
+                                    label="Region"
+                                    labelFor="region"
+                                    labelColor="text-[#181D27]"
+                                    placeholder="Select Region"
+                                    options={regions.map((region) => ({ value: region, label: region }))}
+                                    attributes={{
+                                        value: selectedRegion,
+                                        onChange: (e: React.ChangeEvent<HTMLSelectElement>) => setSelectedRegion(e.target.value)
+                                    }}
                                 />
-                            ))}
-                        </div>
-                    )}
-                </div>
+                            </div>
 
-                {showFilters && (
-                    <div className={`${showFilters ? 'lg:w-[320px] xl:w-[360px] lg:flex-shrink-0 lg:order-1' : 'hidden'}`}>
-                        <FiltersSidebar
-                            isOpen={showFilters}
-                            onClose={() => setShowFilters(false)}
-                            onApplyFilters={handleApplyFilters}
-                            initialFilters={appliedFilters}
-                            type="projects"
-                        />
+                            <div className='w-[300px]'>
+                                <Select
+                                    label="Country"
+                                    labelFor="country"
+                                    labelColor="text-[#181D27]"
+                                    placeholder="Select Country"
+                                    options={countries.map((country) => ({ value: country, label: country }))}
+                                    attributes={{
+                                        value: selectedCountry,
+                                        onChange: (e: React.ChangeEvent<HTMLSelectElement>) => setSelectedCountry(e.target.value)
+                                    }}
+                                />
+                            </div>
+
+                            <div className='w-[300px]'>
+                                <Select
+                                    label="Sector"
+                                    labelFor="sector"
+                                    labelColor="text-[#181D27]"
+                                    placeholder="Select Sector"
+                                    options={sectors.map((sector) => ({ value: sector, label: sector }))}
+                                    attributes={{
+                                        value: selectedSector,
+                                        onChange: (e: React.ChangeEvent<HTMLSelectElement>) => setSelectedSector(e.target.value)
+                                    }}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="flex items-end">
+                            <ActionButton
+                                buttonText="Clear All"
+                                outline
+                                width="fit"
+                                attributes={{ type: "button", onClick: clearAllFilters }}
+                            />
+                        </div>
                     </div>
-                )}
-            </section>
+                </div>
+            )}
+
+            {isLoading ? (
+                <div className="flex items-center justify-center py-12">
+                    <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#6366F1]"></div>
+                </div>
+            ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
+                    {filteredOpinions.map((expert) => (
+                        <ExpertCard
+                            key={expert.id}
+                            expertImage={expert.image}
+                            expertName={expert.name}
+                            title={expert.title}
+                            opinion={expert.opinion}
+                            expertId={expert.id}
+                            link={`/insights/expert-opinions/${expert.id}`}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     );
 };

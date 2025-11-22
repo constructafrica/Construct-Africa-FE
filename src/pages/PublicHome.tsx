@@ -10,6 +10,7 @@ import { Carousel } from "../components/Carousel";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { africanCountries } from "../data/countryMaps";
+import { cleanHtmlContent } from "../utils";
 
 const contactFormSchema = yup.object({
     firstName: yup.string().required('First name is required'),
@@ -39,7 +40,7 @@ const ContactForm = () => {
     });
 
     return (
-        <form onSubmit={formik.handleSubmit} className="space-y-4 sm:space-y-6">
+        <form onSubmit={formik.handleSubmit} className="space-y-4 sm:space-y-6 max-w-lg">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input
                     label="First Name"
@@ -157,7 +158,7 @@ const ContactForm = () => {
             />
 
             <ActionButton
-                buttonText="Book a Demo"
+                buttonText="Submit"
                 backgroundColor="#E0891E"
                 textSize="text-sm sm:text-base"
                 width="full"
@@ -276,7 +277,7 @@ const FeatureItem = ({ feature, index, isActive, progress, onFeatureClick, setPr
                 }}
             >
                 <div style={{
-                    background: "linear-gradient(45deg, #101828 0%, #535862 100%)",
+                    backgroundColor: "#7E766F",
                 }} className="rounded-2xl pt-6 px-6 min-h-[300px] flex flex-col">
                     <div className="flex flex-col items-center gap-3 justify-center mb-4">
                         <div className="bg-white text-[#181D27] px-3 py-1 rounded-full text-sm font-medium">
@@ -287,7 +288,7 @@ const FeatureItem = ({ feature, index, isActive, progress, onFeatureClick, setPr
                         </span>
                     </div>
 
-                    <div className="flex-1 border-[#a2a6ac] border-4 rounded-t-3xl border-b-0 p-2 pb-0 min-h-[200px]">
+                    <div className="flex-1 border-white border-4 rounded-t-3xl border-b-0 p-2 pb-0 min-h-[200px]">
                         <img
                             src={feature.image}
                             alt={feature.title}
@@ -506,13 +507,13 @@ const PublicHome = () => {
                 <div className="absolute inset-0 bg-black/50"></div>
 
                 <div className="z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto absolute bottom-1/2 max-sm:transform max-sm:translate-y-1/2 sm:bottom-16 md:bottom-20">
-                    <h1 className="sm:hidden text-3xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[60px] font-bitter font-semibold mb-2 sm:mb-3 leading-tight px-2">
+                    <h1 className="sm:hidden text-4xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[60px] font-bitter font-semibold mb-2 sm:mb-3 leading-tight px-2">
                         Trusted Intelligence <br /> For Construction <br /> In Africa
                     </h1>
                     <h1 className="max-sm:hidden text-3xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[60px] font-bitter font-semibold mb-2 sm:mb-3 leading-tight px-2">
                         Trusted Intelligence For Construction In Africa
                     </h1>
-                    <p className="sm:hidden text-base sm:text-base md:text-lg text-[#FDFDFD] max-w-2xl mx-auto px-2">
+                    <p className="sm:hidden text-lg sm:text-base md:text-lg text-[#FDFDFD] max-w-2xl mx-auto px-2">
                         Track projects, discover opportunities, <br /> and make smarter decisions.
                     </p>
                     <p className="max-sm:hidden text-base sm:text-base md:text-lg text-[#FDFDFD] max-w-2xl mx-auto px-2">
@@ -574,7 +575,7 @@ const PublicHome = () => {
                             ))}
                         </Carousel>
                     </div>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center max-sm:mt-16 mt-20">
                         <ActionButton
                             buttonText="Learn More"
                             link="/projects"
@@ -617,7 +618,7 @@ const PublicHome = () => {
                     {/* Desktop Image Section - Hidden on mobile (below md) */}
                     <div className="hidden md:flex flex-1 w-full lg:basis-1/2">
                         <div style={{
-                            background: "linear-gradient(45deg, #101828 0%, #535862 100%)",
+                            backgroundColor: "#7E766F",
                         }} className="rounded-4xl pt-10 px-16 h-full flex flex-col">
                             <div className="flex items-center gap-6 justify-center mb-6">
                                 <div className="bg-white text-[#181D27] px-3 py-1 rounded-full text-sm font-medium">
@@ -628,7 +629,7 @@ const PublicHome = () => {
                                 </span>
                             </div>
 
-                            <div className="flex-1 border-[#a2a6ac] border-6 rounded-t-4xl border-b-0 p-2 pb-0">
+                            <div className="flex-1 border-white border-6 rounded-t-4xl border-b-0 p-2 pb-0">
                                 <img
                                     src={displayedImage}
                                     alt={features[activeFeatureIndex]?.title || 'Email notifications'}
@@ -642,7 +643,7 @@ const PublicHome = () => {
             </section>
 
             <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-10 xl:px-20 bg-[#FEF9F4]">
-                <div className="max-w-7xl p-6 sm:p-8 md:p-10 lg:p-14 bg-[url('/images/cta-bg.svg')] bg-cover bg-center mx-auto rounded-xl sm:rounded-2xl relative overflow-hidden flex flex-col items-start justify-between gap-4 sm:gap-6">
+                <div className="max-w-7xl p-6 sm:p-8 md:p-10 lg:p-14 bg-white sm:bg-[url('/images/cta-bg.svg')] bg-cover bg-center mx-auto rounded-xl sm:rounded-2xl relative overflow-hidden flex flex-col items-start justify-between gap-4 sm:gap-6">
                     <div className="z-10 relative max-w-lg">
                         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[36px] font-bitter font-semibold text-[#474747] mb-2 sm:mb-3 md:mb-4">
                             Make Smarter Decisions
@@ -689,7 +690,7 @@ const PublicHome = () => {
                             ))}
                         </Carousel>
                     </div>
-                    <div className="flex justify-center max-sm:mt-16">
+                    <div className="flex justify-center max-sm:mt-16 mt-20">
                         <ActionButton
                             buttonText="View More News"
                             link="/news"
@@ -701,7 +702,7 @@ const PublicHome = () => {
             </section>
 
             <section className="pb-12 sm:pb-16 md:pb-20 px-4 sm:px-6 lg:px-10 xl:px-20">
-                <div className="max-w-7xl p-6 sm:p-8 md:p-10 lg:p-14 bg-[#FAFAFA] mx-auto rounded-xl sm:rounded-2xl relative overflow-hidden">
+                <div className="max-w-7xl p-6 sm:p-8 md:p-10 lg:p-14 bg-[#FAFAFA] sm:bg-[url('/images/cta-bg-3.svg')] bg-cover bg-center mx-auto rounded-xl sm:rounded-2xl relative overflow-hidden">
                     <div className="relative z-10 pr-0 sm:pr-[200px] md:pr-[300px] lg:pr-[400px]">
                         <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[30px] max-w-xl font-bitter font-semibold text-[#181D27] mb-3 sm:mb-4 md:mb-5">
                             Connect with Construct Africa for Key Industry Updates on LinkedIn
@@ -717,7 +718,7 @@ const PublicHome = () => {
                             target="_blank"
                         />
                     </div>
-                    <img className="hidden sm:block w-[200px] sm:w-[300px] md:w-[400px] h-auto object-cover absolute right-0 bottom-0 rounded-tl-2xl sm:rounded-tl-3xl" src="https://plus.unsplash.com/premium_photo-1681989486976-9ec9d2eac57a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y29uc3RydWN0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=900" alt="LinkedIn Newsletter" />
+                    {/* <img className="hidden sm:block w-[200px] sm:w-[300px] md:w-[400px] h-auto object-cover absolute right-0 bottom-0 rounded-tl-2xl sm:rounded-tl-3xl" src="https://plus.unsplash.com/premium_photo-1681989486976-9ec9d2eac57a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y29uc3RydWN0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=900" alt="LinkedIn Newsletter" /> */}
                 </div>
             </section>
 
@@ -726,7 +727,7 @@ const PublicHome = () => {
                     <h2 className="text-sm sm:text-base text-[#414651] mb-3 sm:mb-4 uppercase tracking-wide">
                         EXPERT OPINION
                     </h2>
-                    <h3 className="text-xl sm:text-2xl md:text-3xl text-[#181D27] font-semibold font-bitter px-2">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl text-[#181D27] font-semibold font-bitter px-2 capitalize">
                         Hear from experts across different industries
                     </h3>
                 </div>
@@ -737,7 +738,7 @@ const PublicHome = () => {
                             expertImage={expert.photo}
                             expertName={expert.name}
                             title={expert.title}
-                            opinion={expert.opinion}
+                            opinion={cleanHtmlContent(expert.opinion || expert.bio || '')}
                             expertId={expert.id}
                             link={`/insights/expert-opinions/${expert.id}`}
                         />
@@ -755,7 +756,7 @@ const PublicHome = () => {
             </section>
 
             <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-10 xl:px-20 bg-[#D1C5B8]">
-                <div className="max-w-7xl p-6 sm:p-8 md:p-10 lg:p-14 bg-[url('/images/cta-bg-2.svg')] bg-cover bg-center mx-auto rounded-xl sm:rounded-2xl flex justify-end relative overflow-hidden">
+                <div className="max-w-7xl p-6 sm:p-8 md:p-10 lg:p-14 bg-white sm:bg-[url('/images/cta-bg-2.svg')] bg-cover bg-center mx-auto rounded-xl sm:rounded-2xl flex justify-end relative overflow-hidden">
                     <div className="max-w-md">
                         <div className="z-10 relative flex-1">
                             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[36px] font-bitter font-semibold text-[#474747] mb-2 sm:mb-3 md:mb-4">
@@ -820,9 +821,12 @@ const PublicHome = () => {
                     </div>
 
                     <div className="w-full lg:flex-1 order-1 lg:order-2">
-                        <div className="max-w-lg mx-auto lg:mx-0">
+                        <div className="lg:mx-0">
                             <div className="mb-8 sm:mb-10 md:mb-12 text-center lg:text-left">
-                                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[36px] font-bitter font-semibold text-[#181D27] mb-2 sm:mb-3 leading-tight">Let's ConstructAfrica Together</h2>
+                                <h2 className="text-sm sm:text-base mb-3 text-[#414651] sm:mb-4 uppercase tracking-wide">
+                                    BOOK A DEMO
+                                </h2>
+                                <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-[36px] font-bitter font-semibold text-[#181D27] mb-2 sm:mb-3 leading-tight">Let's ConstructAfrica Together</h3>
                                 <p className="text-sm sm:text-base md:text-lg text-[#535862] mb-4 sm:mb-6 leading-relaxed">
                                     The trusted intelligence for construction in Africa.
                                 </p>

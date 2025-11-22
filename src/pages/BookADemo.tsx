@@ -110,17 +110,17 @@ const BookADemo = () => {
 
     return (
         <div className="min-h-screen bg-white">
-            <div className="px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-                <div className="text-center mb-8 md:mb-12">
-                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bitter font-semibold text-[#181D27] mb-3">
+            <div className="px-4 sm:px-6 md:px-8 lg:px-20 py-6 sm:py-8 md:py-10 lg:py-12">
+                <div className="text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12">
+                    <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bitter font-semibold text-[#181D27] mb-2 sm:mb-3">
                         Let's ConstructAfrica Together
                     </h1>
-                    <p className="text-sm md:text-base text-[#717680] max-w-lg mx-auto">
+                    <p className="text-xs sm:text-sm md:text-base text-[#717680] max-w-lg mx-auto px-2">
                         Fill in your information and select your preferred plan, we will guide you through the next steps to either activate your account or book a demo.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-start">
                     <div className="hidden lg:block relative h-full min-h-[600px]">
                         <div className="sticky top-8">
                             <div className="relative flex-1">
@@ -131,10 +131,10 @@ const BookADemo = () => {
                     </div>
 
                     {/* Right Side - Form */}
-                    <div className="w-full">
-                        <form onSubmit={formik.handleSubmit} className="space-y-6">
+                    <div className="w-full max-w-lg mx-auto lg:mx-0">
+                        <form onSubmit={formik.handleSubmit} className="space-y-4 sm:space-y-5 md:space-y-6">
                             {/* Personal Information - Two Columns */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                                 <Input
                                     label="First name"
                                     labelFor="firstName"
@@ -163,7 +163,7 @@ const BookADemo = () => {
                                 />
                             </div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                                 <Input
                                     label="Company"
                                     labelFor="company"
@@ -209,13 +209,13 @@ const BookADemo = () => {
 
                             {/* Phone Number */}
                             <div>
-                                <label className="text-[#414651] text-sm font-medium mb-1 block">
+                                <label className="text-[#414651] text-xs sm:text-sm font-medium mb-1 block">
                                     Phone number
                                 </label>
-                                <div className="flex gap-2 mt-1">
-                                    <div className="w-24 flex-shrink-0">
+                                <div className="flex gap-2 sm:gap-3 mt-1">
+                                    <div className="w-20 sm:w-24 flex-shrink-0">
                                         <select
-                                            className="w-full px-3 py-2.5 text-sm text-[#414651] border border-[#D5D7DA] rounded-lg outline-none transition-all duration-200"
+                                            className="w-full px-2 sm:px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-[#414651] border border-[#D5D7DA] rounded-lg outline-none transition-all duration-200"
                                             name="phoneCode"
                                             value={formik.values.phoneCode}
                                             onChange={formik.handleChange}
@@ -232,7 +232,7 @@ const BookADemo = () => {
                                         <input
                                             type="tel"
                                             name="phoneNumber"
-                                            className="w-full px-3 py-2.5 text-sm text-[#414651] border border-[#D5D7DA] rounded-lg outline-none transition-all duration-200"
+                                            className="w-full px-2 sm:px-3 py-2 sm:py-2.5 text-xs sm:text-sm text-[#414651] border border-[#D5D7DA] rounded-lg outline-none transition-all duration-200"
                                             placeholder="+1 (555) 000-0000"
                                             value={formik.values.phoneNumber}
                                             onChange={formik.handleChange}
@@ -241,7 +241,7 @@ const BookADemo = () => {
                                     </div>
                                 </div>
                                 {formik.touched.phoneNumber && formik.errors.phoneNumber && (
-                                    <span className="text-xs text-[#D95959] mt-[2px]">{formik.errors.phoneNumber}</span>
+                                    <span className="text-xs text-[#D95959] mt-1 block">{formik.errors.phoneNumber}</span>
                                 )}
                             </div>
 
@@ -262,17 +262,17 @@ const BookADemo = () => {
 
                             {/* Plan Selection */}
                             <div>
-                                <h3 className="text-[#181D27] text-base font-semibold mb-4">Select plan</h3>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <h3 className="text-[#181D27] text-sm sm:text-base font-semibold mb-3 sm:mb-4">Select plan</h3>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                                     {/* News Plan */}
                                     <div
-                                        className={`relative border rounded-xl p-5 cursor-pointer transition-all duration-200 ${formik.values.plan === 'news'
+                                        className={`relative border rounded-lg sm:rounded-xl p-4 sm:p-5 cursor-pointer transition-all duration-200 ${formik.values.plan === 'news'
                                             ? 'border-[#E0891E] bg-[#FFF4E6]'
                                             : 'border-[#E9EAEB] bg-white hover:border-[#E0891E]/50'
                                             }`}
                                         onClick={() => formik.setFieldValue('plan', 'news')}
                                     >
-                                        <div className="flex flex-col gap-3">
+                                        <div className="flex flex-col gap-2 sm:gap-3">
                                             <input
                                                 type="radio"
                                                 name="plan"
@@ -283,12 +283,12 @@ const BookADemo = () => {
                                                 className="mt-1 w-4 h-4 text-[#E0891E] border-gray-300 focus:ring-[#E0891E]"
                                             />
                                             <div className="flex-1">
-                                                <div className="flex items-center gap-2 mb-3">
-                                                    <FiBookOpen className="text-[#E0891E] text-xl" />
-                                                    <span className="text-[#181D27] font-semibold text-base">News</span>
+                                                <div className="flex items-center gap-2 mb-2 sm:mb-3">
+                                                    <FiBookOpen className="text-[#E0891E] text-lg sm:text-xl" />
+                                                    <span className="text-[#181D27] font-semibold text-sm sm:text-base">News</span>
                                                 </div>
-                                                <div className="flex items-center gap-2 text-sm text-[#12B76A]">
-                                                    <HiCheck className="text-lg" />
+                                                <div className="flex items-center gap-2 text-xs sm:text-sm text-[#12B76A]">
+                                                    <HiCheck className="text-base sm:text-lg" />
                                                     <span>Access to all news.</span>
                                                 </div>
                                             </div>
@@ -297,13 +297,13 @@ const BookADemo = () => {
 
                                     {/* Projects Plan */}
                                     <div
-                                        className={`relative border rounded-xl p-5 cursor-pointer transition-all duration-200 ${formik.values.plan === 'projects'
+                                        className={`relative border rounded-lg sm:rounded-xl p-4 sm:p-5 cursor-pointer transition-all duration-200 ${formik.values.plan === 'projects'
                                             ? 'border-[#E0891E] bg-[#FFF4E6]'
                                             : 'border-[#E9EAEB] bg-white hover:border-[#E0891E]/50'
                                             }`}
                                         onClick={() => formik.setFieldValue('plan', 'projects')}
                                     >
-                                        <div className="flex flex-col gap-3">
+                                        <div className="flex flex-col gap-2 sm:gap-3">
                                             <div className="flex-1">
                                                 <div className="flex items-center gap-2 mb-2">
                                                     <input
@@ -316,20 +316,20 @@ const BookADemo = () => {
                                                         className="mt-1 w-4 h-4 text-[#E0891E] border-gray-300 focus:ring-[#E0891E]"
                                                     />
                                                 </div>
-                                                <div className="flex items-center gap-2 mb-2">
-                                                    <FiBriefcase className="text-[#E0891E] text-xl" />
-                                                    <span className="text-[#181D27] font-semibold text-base">Projects</span>
-                                                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-[#ECFDF3] text-[#027A48]">
+                                                <div className="flex items-center gap-2 mb-2 flex-wrap">
+                                                    <FiBriefcase className="text-[#E0891E] text-lg sm:text-xl" />
+                                                    <span className="text-[#181D27] font-semibold text-sm sm:text-base">Projects</span>
+                                                    <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-medium bg-[#ECFDF3] text-[#027A48]">
                                                         Best value
                                                     </span>
                                                 </div>
-                                                <div className="space-y-1.5">
-                                                    <div className="flex items-center gap-2 text-sm text-[#12B76A]">
-                                                        <HiCheck className="text-lg" />
+                                                <div className="space-y-1 sm:space-y-1.5">
+                                                    <div className="flex items-center gap-2 text-xs sm:text-sm text-[#12B76A]">
+                                                        <HiCheck className="text-base sm:text-lg flex-shrink-0" />
                                                         <span>Access to all content.</span>
                                                     </div>
-                                                    <div className="flex items-center gap-2 text-sm text-[#12B76A]">
-                                                        <HiCheck className="text-lg" />
+                                                    <div className="flex items-center gap-2 text-xs sm:text-sm text-[#12B76A]">
+                                                        <HiCheck className="text-base sm:text-lg flex-shrink-0" />
                                                         <span>Access all companies and contacts.</span>
                                                     </div>
                                                 </div>
@@ -341,26 +341,28 @@ const BookADemo = () => {
 
                             {/* Plan Selection Error */}
                             {formik.touched.plan && formik.errors.plan && (
-                                <div className="text-xs text-[#D95959] mt-[-8px]">{formik.errors.plan}</div>
+                                <div className="text-xs text-[#D95959] mt-[-4px] sm:mt-[-8px]">{formik.errors.plan}</div>
                             )}
 
                             {/* Submit Button */}
-                            <ActionButton
-                                buttonText="Book a Demo"
-                                attributes={{
-                                    type: 'submit',
-                                    disabled: !formik.isValid || formik.isSubmitting,
-                                }}
-                                textSize="text-base"
-                                width="full"
-                                backgroundColor="#E0891E"
-                                paddingX="px-6"
-                                loading={formik.isSubmitting}
-                            />
+                            <div className="pt-2">
+                                <ActionButton
+                                    buttonText="Book a Demo"
+                                    attributes={{
+                                        type: 'submit',
+                                        disabled: !formik.isValid || formik.isSubmitting,
+                                    }}
+                                    textSize="text-sm sm:text-base"
+                                    width="full"
+                                    backgroundColor="#E0891E"
+                                    paddingX="px-4 sm:px-6"
+                                    loading={formik.isSubmitting}
+                                />
+                            </div>
 
                             {/* Login Link */}
-                            <div className="text-center">
-                                <p className="text-sm text-[#717680]">
+                            <div className="text-center pt-2">
+                                <p className="text-xs sm:text-sm text-[#717680]">
                                     Already have a subscription?{' '}
                                     <button
                                         type="button"

@@ -46,7 +46,7 @@ const ActionButton = ({
   };
 
   const sharedClasses = `
-    inline-flex justify-center items-center relative font-semibold
+    inline-flex justify-center items-center relative font-semibold capitalize
     ${paddingX}
     ${textSize ? "py-2.5 text-" + textSize : "py-3 md:py-2.5 text-xs md:text-sm"}
     ${fullyRounded ? "rounded-full" : "rounded-md"}
